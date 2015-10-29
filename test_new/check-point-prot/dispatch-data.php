@@ -11,9 +11,9 @@
 
 	// Get Check-point data
 	$raw = $dbConnect -> getPointData( $param );
-	$out['sign'] = $raw['sign'];
-	$out['name'] = $raw['name'];
-	$out['point'] = $raw['point'];
+	// $out['sign'] = $raw['sign'];
+	// $out['name'] = $raw['name'];
+	// $out['point'] = $raw['point'];
 	
-	$Skinny -> SkinnyDisplay( "./Check-Point-Temp.html", $out );
+	$Skinny -> SkinnyDisplay( "./Check-Point-Temp.html", $raw );
 ?>

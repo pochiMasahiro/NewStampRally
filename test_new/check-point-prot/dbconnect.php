@@ -18,7 +18,8 @@ class DBConnect
 		$stmt = $this -> pdo -> prepare('select * from check_point where point = :point;');
 		$stmt -> bindValue( ':point', $param );
 		$stmt -> execute();
-		$out = $stmt -> fetch();
+		$out = $stmt -> fetch(PDO::FETCH_ASSOC);
+		return $out;
 	}
 }
 ?>
