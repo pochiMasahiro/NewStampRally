@@ -1,0 +1,79 @@
+<html>
+<head>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="http://parallel-coordinates.googlecode.com/svn/trunk/parallelC.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+	google.load("visualization", "1");
+	$.ajax({
+		url: "ajax.php",
+		success: function(j_data){
+			length = j_data.length //チェックポイント通過履歴の総数
+			
+			// Set callback to run when API is loaded
+			google.setOnLoadCallback(drawVisualization); 
+			
+			// Called when the Visualization API is loaded.
+			function drawVisualization() {
+					
+				// Create and populate a data table.
+				var data = new google.visualization.DataTable();
+				
+				var count = 0; //通過履歴を数えるための変数
+				var i, j;
+				
+				//creating column headers
+				var graph_width = 5; //横軸の目盛の数
+				for(var i = 1; i <= graph_width; i++){
+					data.addColumn('number', String(i) + 'th check-point');
+				}
+				
+				//ｉは人数を数える変数
+				for(i = 0; count < length; i++){	
+					data.addRow();
+					
+					//ｊは通過したチェックポイントを数える変数
+					for(j = 0; count < length && j < graph_width; j++){
+					
+						//乱数を使って縦軸のブレを作る
+						value = parseFloat(j_data[count]['point']) + (Math.random() - 0.5) * 0.25;
+						data.setCell(i, j, value);
+						
+						//全てのチェックポイントを回ってない場合は残りを０で埋める
+						if(count < length - 1){
+							if(j_data[count]['idm'] != j_data[count+1]['idm']){
+								for(j = j+1; j < graph_width; j++){
+									data.setCell(i, j, 0.0);
+								}
+							}
+						}
+						
+						count++;
+					}
+				}
+				
+				//上下の線を引いてグラフを整える
+				data.addRows(2);
+				for(j = 0; j < graph_width; j++){
+					data.setCell(i, j, 0);
+					data.setCell(i+1, j, 7);
+				}
+				
+				// Instantiate our parallel coordinates object
+				var vis = new vizObj.ParallelC(document.getElementById('parallelC'));
+					
+				// Draw parallel coordinates
+				vis.draw(data, {width: 800, height: 450, title: 'Stump-Rally', lineColor:"#FE2E2E"});
+			}
+			
+		}
+	});
+</script>
+
+<div id="parallelC"></div>
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 <?php
 	// Loadindg File
 	include_once "../Skinny.php";
-	include_once "./dbconnect.php";
+	include_once "../dbconnect.php";
 	
 	// Get parameter
 	$param = $_GET['point'];
