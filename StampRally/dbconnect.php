@@ -28,5 +28,11 @@ class DBConnect
 		$out = $stmt -> fetchAll(PDO::FETCH_BOTH);
 		return $out;
 	}
+	
+	public function getAllPointData(){
+		$stmt = $this -> pdl -> query( 'select * from check_point' );
+		$out = $stmt -> fetchAll(PDO::FETCH_BOTH);
+		return $out;
+	}
 }
 ?>
