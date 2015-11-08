@@ -1,74 +1,119 @@
 <html>
 <head>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="http://parallel-coordinates.googlecode.com/svn/trunk/parallelC.js"></script>
+	<script type="text/javascript" src="d3/d3.js"></script>
 </head>
 
 <body>
 <script type="text/javascript">
-	google.load("visualization", "1");
 	$.ajax({
 		url: "ajax.php",
 		success: function(j_data){
-			length = j_data.length //チェックポイント通過履歴の総数
-			
-			// Set callback to run when API is loaded
-			google.setOnLoadCallback(drawVisualization); 
-			
-			// Called when the Visualization API is loaded.
-			function drawVisualization() {
+			var points = 6;
+			var horizontal = 5;
+			var names = ["受付", "古本市", "鉄研", "モデ研直売所", "まんけん！", "電気通信部"];
 					
-				// Create and populate a data table.
-				var data = new google.visualization.DataTable();
-				
-				var count = 0; //通過履歴を数えるための変数
-				var i, j;
-				
-				//creating column headers
-				var graph_width = 5; //横軸の目盛の数
-				for(var i = 1; i <= graph_width; i++){
-					data.addColumn('number', String(i) + 'th check-point');
-				}
-				
-				//ｉは人数を数える変数
-				for(i = 0; count < length; i++){	
-					data.addRow();
-					
-					//ｊは通過したチェックポイントを数える変数
-					for(j = 0; count < length && j < graph_width; j++){
-					
-						//乱数を使って縦軸のブレを作る
-						value = parseFloat(j_data[count]['point']) + (Math.random() - 0.5) * 0.25;
-						data.setCell(i, j, value);
-						
-						//全てのチェックポイントを回ってない場合は残りを０で埋める
-						if(count < length - 1){
-							if(j_data[count]['idm'] != j_data[count+1]['idm']){
-								for(j = j+1; j < graph_width; j++){
-									data.setCell(i, j, 0.0);
-								}
-							}
-						}
-						
-						count++;
+			//data_set[通過の順番][通過した番号][次に通過する番号]
+			//data_setを[0][0][0]から[holizontal-1][points-1][points-1]まで０で初期化
+			var data_set = new Array(horizontal);
+			for (var i = 0; i < data_set.length; i++) {
+				data_set[i] = new Array(points);
+				for (var j = 0; j < data_set[i].length; j++) {
+					data_set[i][j] = new Array(points);
+					for (var k = 0; k < data_set[i][j].length; k++) {
+						data_set[i][j][k] = 0;
 					}
 				}
-				
-				//上下の線を引いてグラフを整える
-				data.addRows(2);
-				for(j = 0; j < graph_width; j++){
-					data.setCell(i, j, 0);
-					data.setCell(i+1, j, 7);
-				}
-				
-				// Instantiate our parallel coordinates object
-				var vis = new vizObj.ParallelC(document.getElementById('parallelC'));
-					
-				// Draw parallel coordinates
-				vis.draw(data, {width: 800, height: 450, title: 'Stump-Rally', lineColor:"#FE2E2E"});
 			}
 			
+			//data_setに値を入れる
+			var checks = 0; //何番目に通過したか
+			for (var i = 0; i < j_data.length; i++) {
+				if (i < j_data.length - 1 && j_data[i]['idm'] == j_data[i+1]['idm']) { //最後の行じゃなくて、次の行も同じユーザの情報の場合
+					var current_point = Number(j_data[i]['point']) - 1;
+					var next_point = Number(j_data[i+1]['point']) - 1;
+					data_set[checks][current_point][next_point] += 1;
+					checks += 1;
+				}
+				else {
+					checks = 0;
+				}
+			}
+
+			//data_setを元にしてjson_dataを作る
+			var json_data = new Array();
+			for (var i = 0; i < data_set.length; i++) {
+				for (var j = 0; j < data_set[i].length; j++) {
+					for (var k = 0; k < data_set[i][j].length; k++) {
+						json_data.push({
+							"order" : String(i),
+							"current" : String(j),
+							"next" : String(k),
+							"count" : String(data_set[i][j][k])
+						});
+					}
+				}
+			}
+			
+			var width = 1000,
+				height = 600;
+
+			var svg = d3.select("body").append("svg")
+				.attr("width", width)
+				.attr("height", height);
+				
+			var x_position = new Array(horizontal);
+			for (var i = 0; i < x_position.length; i++) {
+				x_position[i] = 50 + i*100;
+			}
+
+			var y_position = new Array(points);
+			for (var i = 0; i < y_position.length; i++) {
+				y_position[i] = 50 + points*80 - i*80;
+			}
+			
+			var position = new Array();
+			for (var i = 0; i < x_position.length; i++) {
+				for (var j = 0; j < y_position.length; j++) {
+					position.push([x_position[i], y_position[j]]);
+				}
+			}
+			
+			//positionリストを利用して点をプロットする
+			var node = svg.selectAll("circle")
+				.data(position)
+				.enter()
+				.append("circle")
+				.attr("cx", function(d){ return d[0]; })
+				.attr("cy", function(d){ return d[1]; })
+				.attr("r", "5");
+				
+			//json_dataを利用して点を線で結ぶ
+			var link = svg.selectAll("line")
+				.data(json_data)
+				.enter()
+				.append("line")
+				.attr("x1", function(d){ return x_position[ Number(d["order"]) ] })
+				.attr("x2", function(d){ return x_position[ Number(d["order"]) + 1 ] })
+				.attr("y1", function(d){ return y_position[ Number(d["current"]) ] })
+				.attr("y2", function(d){ return y_position[ Number(d["next"]) ] })
+				.attr("stroke", "red")
+				.attr("stroke-width", function(d){ return String(Number(d["count"] / 5.0))});
+
+			//namesリストを利用して縦軸を表示する
+			var vertical_axis = svg.append("line")
+				.attr("x1", 50 + horizontal*100)
+				.attr("x2", 50 + horizontal*100)
+				.attr("y1", 50 + 80)
+				.attr("y2", 50 + points*80)
+				.attr("stroke", "black");
+			var point_name = svg.selectAll("text")
+				.data(names)
+				.enter()
+				.append("text")
+				.attr("x", 50 + horizontal*100)
+				.attr("y", function(d, i){ return 50 + (points - i)*80; })
+				.text(function(d){ return d; });
 		}
 	});
 </script>
