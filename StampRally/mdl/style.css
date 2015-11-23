@@ -3,10 +3,27 @@ html, body{
 	margin: 0;
 	padding: 0;
 }
+.header-navigation
+.mdl-layout__header-row
+{
+	padding-right: 0;
+	padding-left: 24px;
+}
+
+.header-navigation
+.mdl-navigation__link:hover{
+	border-bottom: 4px solid #ff7f50; 
+}
+
+.header-navigation
+.mdl-navigation__link{
+	border-bottom: 4px solid transparent;
+}
 
 .container{
-	width: 100%;
 	display:flex;
+	margin-left: auto;
+	margin-right: auto;
 	margin-bottom: 20px;
 	flex-direction: column;
 	justify-content: flex-start;
