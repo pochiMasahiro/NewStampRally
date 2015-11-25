@@ -3,6 +3,11 @@ html, body{
 	margin: 0;
 	padding: 0;
 }
+
+.main.mdl-layout_container{
+	display: flex;
+	justify-content: center;
+}
 .header-navigation
 .mdl-layout__header-row
 {
@@ -30,16 +35,12 @@ html, body{
 }
 
 .mdl-card{
+	width: 840px;
+	margin-top: 15px;
 	margin-bottom: 20px;
 }
 
 .banner-card.mdl-card{
-	width: 840px;
 	height: 200px;
-	margin-top: 15px;
 	background: url('./test_banner.jpg') center / cover;
-}
-
-.enq-card.mdl-card{
-	width: 840px;
 }
