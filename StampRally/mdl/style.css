@@ -11,7 +11,7 @@ html, body{
 .header-navigation
 .mdl-layout__header-row
 {
-	padding-right: 0;
+	padding-right: 24px;
 	padding-left: 24px;
 }
 
@@ -42,5 +42,5 @@ html, body{
 
 .banner-card.mdl-card{
 	height: 200px;
-	background: url('./test_banner.jpg') center / cover;
+	/*background: url('./test_banner.jpg') center / cover;*/
 }
