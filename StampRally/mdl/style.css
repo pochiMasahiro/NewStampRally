@@ -27,12 +27,10 @@ html, body{
 
 .container{
 	display:flex;
-	/*margin-left: auto;
-	margin-right: auto;*/
 	margin-bottom: 20px;
 	flex-direction: column;
 	justify-content: center;
-	align-content: center;
+	align-items: center;
 }
 
 .mdl-card{
@@ -44,4 +42,8 @@ html, body{
 .banner-card.mdl-card{
 	height: 200px;
 	/*background: url('./test_banner.jpg') center / cover;*/
+}
+
+.enq-card.mdl-card{
+	align-items: center;
 }
