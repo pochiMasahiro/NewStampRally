@@ -9,7 +9,7 @@ class CheckPointController
 		// パラメータ取り出し用のクラス作成の予定から変更の可能性あり
 		$params = $_GET['point'];
 		
-		// データベースコネクションクラスの作成
+		// データベースコネクションインスタンスの作成
 		$dbConnect = new DBConnect();
 		// チェックポイントデータの取り出し
 		$pointData = $dbConnect -> getPointData( $params );

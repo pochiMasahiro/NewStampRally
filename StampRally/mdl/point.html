@@ -14,7 +14,7 @@
 				
 				<div class="mdl-layout__header-row">
 					<!-- Title -->
-					<h2>KITTEN</h2>
+					<h2><% echo(title) %></h2>
 					
 					<!-- Space -->
 					<div class="mdl-layout-spacer"></div>
@@ -28,10 +28,12 @@
 			
 			<!-- Contents -->
 			<main class="container mdl-layout__content">
-				<!-- Content1 -->
-				<div class="banner-card mdl-card" style="background: url('./test_banner.jpg') center / cover;">
+				<!-- Banner -->
+				<div class="banner-card mdl-card" style="background: url('<% echo(banner) %>') center / cover;">
 					<div class="mdl-card__title"></div>
 				</div>
+				
+				<!-- アンケート -->
 				<div class="enq-card mdl-card mdl-shadow-4dp">
 					<div class="mdl-card__supporting-text">
 						<h4>How did you feel about a means of transportation to here?</h4>
