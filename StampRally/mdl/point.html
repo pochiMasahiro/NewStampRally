@@ -36,15 +36,18 @@
 				<!-- アンケート -->
 				<div class="enq-card mdl-card mdl-shadow-4dp">
 					<div class="mdl-card__supporting-text">
-						<h4>How did you feel about a means of transportation to here?</h4>
-						<h4>1. Rate</h4>
-						<input class="mdl-slider mdl-js-slider" type="range" min="1" max="10" value="5" tabindex="0">
+						<form method="post" action="anq.php" id="form"> 
+							<input type="hidden" name="path" value="../<% echo(path) %>">
+							<h4>How did you feel about a means of transportation to here?</h4>
+							<h4>1. Rate</h4>
+							<input name="rate" class="mdl-slider mdl-js-slider" type="range" min="1" max="10" value="5" tabindex="0">
 					
-						<h4>2. Cleanliness</h4>
-						<input class="mdl-slider mdl-js-slider" type="range" min="1" max="10" value="5" tabindex="0">
+							<h4>2. Cleanliness</h4>
+							<input name="clean" class="mdl-slider mdl-js-slider" type="range" min="1" max="10" value="5" tabindex="0">
 							
-						<h4>3. Comprehensibility</h4>
-						<input class="mdl-slider mdl-js-slider" type="range" min="1" max="10" value="5" tabindex="0">
+							<h4>3. Comprehensibility</h4>
+							<input name="comprehensibility" class="mdl-slider mdl-js-slider" type="range" min="1" max="10" value="5" tabindex="0">
+						</form>
 					</div>
 				</div>
 			</main>
