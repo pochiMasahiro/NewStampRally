@@ -15,10 +15,15 @@ class DBConnect
 	
 	public function getPointData( $param )
 	{
+		/* データ取り出し */
 		$stmt = $this -> pdo -> prepare('select * from check_point where point = :point;');
 		$stmt -> bindValue( ':point', $param );
 		$stmt -> execute();
 		$out = $stmt -> fetch(PDO::FETCH_ASSOC);
+		
+		/* アンケートフォームから戻るためのpath */
+		$out[path] = str_replace(" ", "", $out[title]);
+	
 		return $out;
 	}
 	
@@ -29,10 +34,20 @@ class DBConnect
 		return $out;
 	}
 	
-	public function getAllPointData(){
+	public function getAllPointData()
+	{
 		$stmt = $this -> pdl -> query( 'select * from check_point' );
 		$out = $stmt -> fetchAll(PDO::FETCH_BOTH);
 		return $out;
+	}
+	
+	public function setPointData($title, $path)
+	{
+		$stmt = $this -> pdl -> prepare('insert into check_point (title, banner) values(:title, :banner)');
+		$stmt -> bindValue( ':title', $title );
+		$stmt -> bindValue( ':banner', $path );
+		$stmt -> execute();
+		return 0;
 	}
 }
 ?>
