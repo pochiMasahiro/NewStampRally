@@ -3,14 +3,15 @@
 	require 'Skinny.php';
 	
 	$idm = $_POST[idm];
+	$tmp[path] = $_POST[path];
 	$dbconnect = new DBConnect();
 	
 	if($idm == null){
-		Skinny -> SkinnyDisplay("error.html", $_POST[point]);
+		Skinny -> SkinnyDisplay("error.html", $tmp);
 		exit();
 	} 
 	else if(checkUser($idm)){
-		Skinny -> SkinnyDisplay("no_account.html", $_POST[point]);
+		Skinny -> SkinnyDisplay("no_account.html", $tmp);
 	}
 	else{
 		$idm = $_POST[idm];

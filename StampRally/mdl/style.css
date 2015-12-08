@@ -4,6 +4,10 @@ html, body{
 	padding: 0;
 }
 
+label{
+	padding-right: 15px;
+}
+
 .main.mdl-layout_container{
 	display: flex;
 	justify-content: center;
@@ -46,4 +50,8 @@ html, body{
 
 .enq-card.mdl-card{
 	align-items: center;
+}
+
+.mdl-textfield{
+	padding: 0px 0;
 }

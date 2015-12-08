@@ -5,7 +5,7 @@
 		<script src="mdl/material.min.js"></script>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="style.css">
-		<title>Register</title>
+		<title>ERROR</title>
 	</head>
 	
 	<body class="mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
@@ -14,73 +14,23 @@
 				
 				<!-- Title -->
 				<div class="mdl-layout__header-row">
-					<h2>REGISTER</h2>
+					<h2>ERROR</h2>
 				</div>
 			</header>
 			
 			<!-- Contents -->
 			<main class="container mdl-layout__content">
-				<div class="enq-card mdl-card mdl-shadow-4dp">
+				<div class="enq-card mdl-card mdl-shadow--2dp">
+					<div class="mdl-card__title">
+						<h2 class="mdl-card__title-text">ERROR!!</h2>
+					</div>
 					<div class="mdl-card__supporting-text">
-						<form action="#">
-							<!-- Question 1-->
-							<h4>1. Purpose</h4>
-							<label for="business" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-								<input type="radio" class="mdl-radio__button" id="business" name="purpose" value="business" checked />
-								<span class="mdl-radio__label">Business</span>
-							</label>
-							<label for="tourism" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-								<input type="radio" class="mdl-radio__button" id="tourism" name="purpose" value="tourism" />
-								<span class="mdl-radio__label">Tourism</span>
-							</label>
-							<label for="visiting" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-								<input type="radio" class="mdl-radio__button" id="visiting" name="purpose" value="visiting" />
-								<span class="mdl-radio__label">Visting family / friends</span>
-							</label>
-							<label for="watching" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-								<input type="radio" class="mdl-radio__button" id="watching" name="purpose" value="watching" />
-								<span class="mdl-radio__label">Sport watching</span>
-							</label>
-							<label for="other" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-								<input type="radio" class="mdl-radio__button" id="other" name="purpose" value="other" />
-								<span class="mdl-radio__label">other</span>
-							</label>
-							
-							<!-- Question 2 -->
-							<h4 style="margin-bottom: 0px;">2. Age</h4>
-							<div class="mdl-textfield mdl-js-textfield">
-								<input class="mdl-textfield__input" pattern="[0-9]{1-3}" type="text" id="num">
-								<label class="mdl-textfield__label" for="num">Age</label>
-								<span class="mdl-textfield__error">Input is not a number!</span>
-							</div>
-							
-							<!-- Question 3 -->
-							<h4 style="margin-top: 0px;">3. Mr or Ms</h4>
-							<label for="Male" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-								<input type="radio" class="mdl-radio__button" id="Male" name="gender" value="Male" checked />
-								<span class="mdl-radio__label">Male</span>
-							</label>
-							<label for="Female" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-								<input type="radio" class="mdl-radio__button" id="Female" name="gender" value="Female" checked />
-								<span class="mdl-radio__label">Female</span>
-							</label>
-							
-							<!-- Question 4 -->
-							<h4>4. How many times have you visited Japan?</h4>
-							<label for="first" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-								<input type="radio" class="mdl-radio__button" id="first" name="times" value="first" checked />
-								<span class="mdl-radio__label">First</span>
-							</label>
-							<label for="more" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-								<input type="radio" class="mdl-radio__button" id="more" name="times" value="more" />
-								<span class="mdl-radio__label">Two or more</span>
-							</label>
-							<div>
-								<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button__colored">
-									Next
-								</button>
-							</div>
-						</form>
+						Proccessing is failed.Please push "FINISH" button and re-start operation.
+					</div>
+					<div class="mdl-card__actions mdl-card--border">
+						<a href="<% echo(path) %>" class="mdl-button mdl-js-button mdl-button__colored">
+							finish
+						</a>
 					</div>
 				</div>
 			</main>
