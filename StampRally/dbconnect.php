@@ -49,5 +49,31 @@ class DBConnect
 		$stmt -> execute();
 		return 0;
 	}
+	
+	public function setAnqData( $idm, $point, $rate, $clean, $comprehensive )
+	{
+		$stmt = $this -> pdl -> prepare('insert into point_anq (idm, point, rate, clean, comprehensive) values(:idm, :point, :rate, :clean, :comprehensive)');
+		$stmt -> bindValue(':idm', $idm);
+		$stmt -> bindValue(':point', $point);
+		$stmt -> bindValue(':rate', $rate);
+		$stmt -> bindValue(':clean', $clean);
+		$stmt -> bindValue(':comprehensive', $comprehensive);
+		$stmt -> execute();
+		return 0;
+	}
+	
+	public function setUserData( $idm, $purpose, $age, $area, $gender, $visited )
+	{
+		$stmt = $this -> pdl -> prepare('insert into account (idm, purpose, age, area, gender, visited) values(:idm, :purpose, :age, :area, :gender, :visited)');
+		$stmt -> bindValue(':idm', $idm);
+		$stmt -> bindValue(':purpose', $purpose);
+		$stmt -> bindValue(':age', $age);
+		$stmt -> bindValue(':area', $area);
+		$stmt -> bindValue(':gender', $gender);
+		$stmt -> bindValue(':visited', $visited);
+		$stmt -> execute();
+		return 0;
+	}
+	
 }
 ?>
