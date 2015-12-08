@@ -36,14 +36,14 @@ class DBConnect
 	
 	public function getAllPointData()
 	{
-		$stmt = $this -> pdl -> query( 'select * from check_point' );
+		$stmt = $this -> pdo -> query( 'select * from check_point' );
 		$out = $stmt -> fetchAll(PDO::FETCH_BOTH);
 		return $out;
 	}
 	
 	public function setPointData($title, $path)
 	{
-		$stmt = $this -> pdl -> prepare('insert into check_point (title, banner) values(:title, :banner)');
+		$stmt = $this -> pdo -> prepare('insert into check_point (title, banner) values(:title, :banner)');
 		$stmt -> bindValue( ':title', $title );
 		$stmt -> bindValue( ':banner', $path );
 		$stmt -> execute();
@@ -52,7 +52,7 @@ class DBConnect
 	
 	public function setAnqData( $idm, $point, $rate, $clean, $comprehensive )
 	{
-		$stmt = $this -> pdl -> prepare('insert into point_anq (idm, point, rate, clean, comprehensive) values(:idm, :point, :rate, :clean, :comprehensive)');
+		$stmt = $this -> pdo -> prepare('insert into point_anq (idm, point, rate, clean, comprehensive) values(:idm, :point, :rate, :clean, :comprehensive)');
 		$stmt -> bindValue(':idm', $idm);
 		$stmt -> bindValue(':point', $point);
 		$stmt -> bindValue(':rate', $rate);
@@ -64,7 +64,7 @@ class DBConnect
 	
 	public function setUserData( $idm, $purpose, $age, $area, $gender, $visited )
 	{
-		$stmt = $this -> pdl -> prepare('insert into account (idm, purpose, age, area, gender, visited) values(:idm, :purpose, :age, :area, :gender, :visited)');
+		$stmt = $this -> pdo -> prepare('insert into account (idm, purpose, age, area, gender, visited) values(:idm, :purpose, :age, :area, :gender, :visited)');
 		$stmt -> bindValue(':idm', $idm);
 		$stmt -> bindValue(':purpose', $purpose);
 		$stmt -> bindValue(':age', $age);
@@ -77,14 +77,14 @@ class DBConnect
 	
 	public function checkUser( $idm )
 	{
-		$chk_account = $this -> pdl -> prepare('select name from account where idm = :idm ');
+		$chk_account = $this -> pdo -> prepare('select idm from account where idm = :idm ');
 		$chk_account -> bindValue(':idm', $idm);
 		$chk_account -> execute();
 		if(($row_name = $chk_account -> fetchColumn()) != null){
-			return 0;
+			return 1;
 		}
 		else{
-			return 1;
+			return 0;
 		}
 	}
 	

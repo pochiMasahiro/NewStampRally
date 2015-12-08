@@ -7,21 +7,21 @@
 	$dbconnect = new DBConnect();
 	
 	if($idm == null){
-		Skinny -> SkinnyDisplay("error.html", $tmp);
+		$Skinny -> SkinnyDisplay("error.html", $tmp);
 		exit();
 	} 
-	else if(checkUser($idm)){
-		Skinny -> SkinnyDisplay("no_account.html", $tmp);
+	else if(!($dbconnect -> checkUser($idm))){
+		$Skinny -> SkinnyDisplay("no_account.html", $tmp);
 	}
 	else{
 		$idm = $_POST[idm];
-		$purpose = $_POST[purpose];
-		$age = $_POST[age];
-		$area = $_POST[area];
-		$gender = $_POST[gender];
-		$visited = $_POST[visited];
-		$dbconnect = new DBConnect();
-		$dbConnect -> setAnqData( $idm, $purpose, $age, $area, $gender, $visited );
-		Skinny -> SkinnyDisplay("success.html", $_POST[point]);
+		$rate = $_POST[rate];
+		$clean = $_POST[clean];
+		$comprehensive = $_POST[comprehensibility];
+		$point = $_POST[point];
+		$dbconnect -> setAnqData( $idm, $point, $rate, $clean, $comprehensive );
+		
+		$out = $_POST[path];
+		$Skinny -> SkinnyDisplay("success.html", $out);
 	}
 ?>
