@@ -2,10 +2,17 @@
 	require 'dbconnect.php';
 	require 'Skinny.php';
 	
-	if($_POST[idm] == null){
+	$idm = $_POST[idm];
+	$dbconnect = new DBConnect();
+	
+	if($idm == null){
 		Skinny -> SkinnyDisplay("error.html", $_POST[point]);
 		exit();
-	} else{
+	} 
+	else if(checkUser($idm)){
+		Skinny -> SkinnyDisplay("no_account.html", $_POST[point]);
+	}
+	else{
 		$idm = $_POST[idm];
 		$purpose = $_POST[purpose];
 		$age = $_POST[age];

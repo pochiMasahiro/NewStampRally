@@ -75,5 +75,18 @@ class DBConnect
 		return 0;
 	}
 	
+	public function checkUser( $idm )
+	{
+		$chk_account = $this -> pdl -> prepare('select name from account where idm = :idm ');
+		$chk_account -> bindValue(':idm', $idm);
+		$chk_account -> execute();
+		if(($row_name = $chk_account -> fetchColumn()) != null){
+			return 0;
+		}
+		else{
+			return 1;
+		}
+	}
+	
 }
 ?>
